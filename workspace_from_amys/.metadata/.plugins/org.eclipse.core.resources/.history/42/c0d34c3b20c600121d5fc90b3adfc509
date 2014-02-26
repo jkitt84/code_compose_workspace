@@ -1,0 +1,243 @@
+// ek307master.c
+//
+// Starter code for the Boston University EK307 Electric Circuit Theory
+// microcontroller lab.
+//
+// This file contains many useful commands and prewritten sections of C
+// code that can be used as a starting point for writing programs on the TI
+// MSP430G2231 microcontroller.
+//
+// If a line of code is followed by //!!! , do NOT remove it from the program.
+// It is required to make the MSP430 chip or your code run properly.
+
+/*
+ *
+ * Includes
+ * One and only one of the following include statements must be
+ * uncommented. To determine which line is necessary, look at the number on
+ * the uC installed in the launchpad.
+ *
+ */
+// Include the chip specific definitions for the MSP430G2231
+//#include  <msp430g2231.h>                               				//!!!
+// Include the chip specific definitions for the MSP430G2552
+#include  <msp430g2452.h>                               				//!!!
+//#include <msp430.h>
+// Include the chip specific definitions for the MSP430G2553
+//#include  <msp430g2553.h>                               				//!!!
+
+/*
+ *
+ * Initializations
+ *
+ * In this section, global variables are declared and initialized. These are
+ * variables that can be referenced from any function, anywhere in the
+ * program.
+ *
+ */
+
+// Declare some general variables to be used later
+int n;
+int k;
+
+// Declare and reset a variable to be a counter
+int counter = 0;
+
+/*
+ *
+ * Main Function
+ *
+ * The main function is the entry point of a C program. When a C program
+ * starts running, the code in main is the first code to be executed.
+ *
+ * This code will be relying on interrupts to perform actions, so, the main
+ * function will only be executed once.
+ *
+ * The code in the main function will perform configuration actions such as:
+ * 			* configuring the clock system,
+ * 			* setting up the interrupts,
+ * 			* configuring the input and output ports, and
+ * 			* initializing the sleep mode.
+ * 	At the end of the main function the microcontroller will go to sleep.
+ * 	After the uC goes to sleep, it will only execute the code in the
+ * 	Timer A interrupt service routine below when the Timer goes off.
+ */
+void main(void) {                                                       //!!!
+	// Configure the on-chip oscillators to run at 1 MHz
+	BCSCTL1 = CALBC1_1MHZ;                                              //!!!
+	DCOCTL  = CALDCO_1MHZ;                                              //!!!
+
+	WDTCTL = WDTPW + WDTHOLD;        // put WDT in the hold state
+
+	// Configure the Timer A interrupt
+	// To change the time between interrupts, change TACCR0. The time
+	// between interrupts = 1 us * TACCR0
+	TACTL = TASSEL_2 + ID_0 + MC_1;                                     //!!!
+	TACCR0 = 10000;                                                     //!!!
+	TACCTL0 = CCIE;                                                     //!!!
+
+	// Configure the input and output ports
+	//
+	// Port 1 has 8 pins numbered P1.0 to P1.7.
+	// Port 2 has 2 pins numbered P2.6 (XIN) and P2.7 (XOUT)
+	//
+	// Configure Port 1 and 2 as I/O ports.
+	//
+	// EK307: Don't change these
+	P1SEL = 0;                                                          //!!!
+	P2SEL = 0;                                                          //!!!
+
+	// P1DIR and P2DIR control the directionality of the two I/O ports. Each
+	// variable is an 8-bit word. By setting one of those 8-bits to 1, the
+	// corresponding pin will be configured as an output port.
+	//
+	// (if changed, comment these lines to retain them for future reference
+	//  and write a new line with comments describing how it configures the
+	//  pins of port 1)
+	//
+	// **** EK307: You may need to change these ****
+	//
+	// Port 1:
+	P1DIR = 255;			// Configure all pins of Port 1 outputs
+	//P1DIR = 0;            // Configure all pins of Port 1 inputs
+	//P1DIR = 1+2+4+8       // Configure pins 0-3 as outputs, pins 4-7 as inputs
+	//P1DIR = 16+32+64+128  // Set Port 1 pins 4-7 as outputs,
+							// and pins 0-3 as inputs
+	// Port 2:
+	P2DIR = 255;			// Set XIN=input  and XOUT=input ___jpk changed from 0 to 255
+	//P2DIR = 64;     	// Set XIN=output and XOUT=input
+	//P2DIR = 128;    	// Set XIN=input  and XOUT=output
+	//P2DIR = 128+64; 	// Set XIN=output and XOUT=output
+
+	//jpk
+	P1OUT=0;
+	P2OUT=0;
+
+	// Enable interrupts and enter Low Power Mode 0
+	_bis_SR_register(GIE+LPM0_bits);                                    //!!!
+} // end of main()                                                      //!!!
+
+
+
+//                  Timer A interrupt service routine
+//
+// This is where all of the EK307 code should be placed. The code in this
+// function will execute whenever the Timer A counter generates an interrupt.
+// Timer will generate interrupts at a fixed time interval that is
+// controlled by the speed of the clock and the value contained in the
+// TACCR0 register.
+//
+// By default, this function is executed every 10 ms.
+//
+// EK307 code should go in this function
+//
+// Do not put 'for' or 'while' loops inside interrupt service routines.
+// Your code should consist primarily of 'if' or 'switch' statements.
+//
+//
+// Uncomment one of the following lines according to the chip installed in
+// your launchpad.
+//#pragma vector=TIMERA0_VECTOR   // MSP430G2231                          //!!!
+#pragma vector=TIMER0_A0_VECTOR // MSP430G2452, MSP430G2553             //!!!
+__interrupt void TimerA0_ISR(void) {                                      //!!!
+
+	/*
+	 *
+	 *
+	 *      EK307 Code Goes Here!
+	 *
+	 *
+	 */
+
+	// EXAMPLES OF WHAT MIGHT APPEAR IN YOUR CODE:
+
+	// Some commands to write to Ports that have been configured as outputs:
+	//P1OUT=255;        // Sets all pins of Port1 to 1
+	//P1OUT=0;          // Sets all pins of Port1 to 0
+	//P1OUT=128+32;     // Sets P1.7 and P1.5 to 1; all other Port1 pins to 0
+	//P1OUT=160;        // Same as above, but uses 128+32=160 on the RHS
+	//P1OUT=0xA0;       // Same as above, but uses hex notation on the RHS
+	//P2OUT=128;        // Sets XOUT pin to 1, XIN pin to 0
+	//P2OUT=64;         // Sets XIN  pin to 1, XOUT pin to 0
+	//P2OUT=0;          // Sets XIN and XOUT to 0
+
+	// Some commands to read from a port that has been configured as input
+	n=P1IN;     // Sets n to a number between 0 and 255 depending on the
+	            // high or low state of the individual pins of Port 1
+	            // Example: n will be read in as 128+32+1 = 161 if
+	            // the voltages applied to Port1 = [1 0 1 0 0 0 0 1]
+	            // Remember that 1=high=(3.3V) and 0=low=(0 V)
+
+	k=P2IN;     // Yields k=64 if XIN is high; k=128 if XOUT is high; and
+	            // k=128+64=192 if both are high
+
+	// After reading from an input port, the values read can be tested. For
+	// example:
+	//
+	// if ( k == (128 + 64) ) {
+	// 		// if both XIN and XOUT are 1s, execute code in this block
+	// 		code
+	// 		code
+	// 		code...
+	// } else {
+	// 		// otherwise execute this code.
+	// 		code
+	// 		code
+	// 		code...
+	// }
+
+	//
+	// Set up the LED to blink 1 second on and 1 second off.
+	//
+	// The clock is at 1 MHz (1e6), and the Timer A counter counts up to
+	// 10,000 before it generates an interrupt. So, an interrupts occur
+	// at 1e6/10000 = 100 Hz. To change state every second, we should
+	// count to 100 before we do anything.
+	//
+	// When working on Levels 1, 2, and 3, this code should be commented out.
+	//
+	if (counter == 100){ // If the value of counter == 100
+		//P1OUT ^= 0x01;         // Toggle the state of all pins on port 1
+		P1OUT = 0x01;
+		//P2OUT ^= 0xFF;
+		//counter = 0;           // Reset the counter
+		counter++;
+	} else if (counter == 200){
+		//P1OUT ^= 0x02;
+		P1OUT = 0x02;
+		counter++;
+		//counter = 0;
+	}else if (counter == 300){
+		P1OUT = 0x04;
+		counter = 0;
+	} else {                   // ... otherwise
+		counter = counter + 1; // increment the counter
+	}
+
+	// End of the interrupt service routine.
+	// When the code gets here, the uC goes back to sleep and waits for this
+	// function to be executed again.
+} // end TimerA0_ISR                                                    //!!!
+
+
+
+//                  Watchdog timer interrupt service routine
+//
+// This function is retained for informational purposes only. All EK307 code
+// should be written in the Timer A interrupt service routine (TimerA0_ISR).
+//
+#pragma vector=WDT_VECTOR                                               //!!!
+__interrupt void WDT_ISR(void) {                                        //!!!
+
+	// If for some reason we end up in this function, then the watchdog
+	// timer is enabled. Disable it so we don't end up here again.
+
+	// Disable the watchdog timer interrupt
+    IE1 &= ~WDTIE;                   // disable interrupt
+    IFG1 &= ~WDTIFG;                 // clear interrupt flag
+    WDTCTL = WDTPW + WDTHOLD;        // put WDT back in hold state
+
+} // end of WDT_interval_handler()                     					//!!!
+
+
+

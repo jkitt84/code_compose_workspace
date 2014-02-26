@@ -1,0 +1,1 @@
+"./updateLEDs.obj" "./uart_config.obj" "./spiConfig.obj" "./set7512.obj" "./set5504.obj" "./pinConfig.obj" "./main.obj" "./clockConfig.obj" "./ascii2dec.obj" -l"libc.a" "../lnk_msp430g2553.cmd" 

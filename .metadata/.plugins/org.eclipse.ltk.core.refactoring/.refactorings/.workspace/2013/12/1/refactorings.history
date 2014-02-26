@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;USCI_UCB0_internet_transplant&apos; to &apos;USCI_UCB0_internet_transplant_for_DAC7512&apos;" description="Rename resource &apos;USCI_UCB0_internet_transplant&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/USCI_UCB0_internet_transplant" name="USCI_UCB0_internet_transplant_for_DAC7512" stamp="1388328347086" updateReferences="true"/>
+</session>

@@ -1,0 +1,75 @@
+/*
+ * SPI bus to set outputs on Analog Devices AD5504
+ *
+ */
+#include <msp430g2452.h>
+#include <intrinsics.h>
+#include <stdint.h>
+
+//should define slave select as P1.4 but don't know how to use the compiler call
+// nSS (not slave select)
+
+uint8_t RXdata;
+uint8_t TXdata = 0x77;					//this is the LOW transmitted byte
+uint8_t TXdata2 = 0x00;					//this is the HIGH transmitted byte
+
+void main(void) {
+	BCSCTL1 = CALBC1_12MHZ;               		// 12MHz clock
+	DCOCTL  = CALDCO_12MHZ;
+
+//watch dog as interval timer, clear, SMCLK/ 8192 = 1.5kHz (0.7mS)
+//Pass Word, Timer Mode Select= Interval Timer, Count Clear, Interval Selection = divide by 8192
+	WDTCTL = WDTPW | WDTTMSEL | WDTCNTCL | WDTIS0 ;
+//enable WD interrupt, set Interrupt Enable Register 1 bit 0 to true (1)
+	IE1 |= 0x01;
+//clean up port 2 because it is unused
+//Select = 0 (digital I/O selected), Dir =0 (inputs), enable the pull down (P2OUT=0 ???) on the unused outputs and crystal pins
+	P2SEL = 0;
+	P2DIR = 0;
+	P2REN = BIT0 | BIT1 | BIT2 | BIT3 | BIT4 | BIT5 | BIT6 | BIT7;
+//USI will override these settings for SCLK, SDI and SDO (but not P1.4)
+	P1OUT = BIT4;
+	P1DIR = BIT4;//only P1.4 will be the SlaveSelect output handled by software
+	P1REN = BIT0 | BIT1 | BIT2 | BIT3 ; //pull the resistors on the unused pins
+//enable SDI, SDO, SCLK, MSB first !!! NG, master, not using USIGE gate enable so output latch enable depends on shift clock !!!! NG, output enable, software reset
+	USICTL0 = USIPE7 | USIPE6 | USIPE5 | USIMST | USIOE | USISWRST;
+// CPHA = 0 ?? NG ??, SPI not I2C, USI counter Interupt Enable, set the Interupt Flag
+	USICTL1 = USIIE | USIIFG;// cant clear the USIIFG in reset mode
+//SCLK = SMCLK / 128, clock idles low
+	USICKCTL = USIDIV_7 | USISSEL_2;
+	USICTL0 &= ~USISWRST; //release from reset
+	USICTL1 &= ~USIIFG; //avoid unwanted interupt
+	for ( ; ; ){//loop forever with interupts
+		__low_power_mode_0();//LPM0 between interupts
+	}
+}
+//----------------------------------------------------------------------------
+// ISR for the interupt that is created by the watchdog, DOES NOT CREATE AN ACTUAL WATCHDOG FAULT
+//----------------------------------------------------------------------------
+#pragma vector = WDT_VECTOR
+__interrupt void WDT_ISR (void) //acknowledged automatically
+{
+	P1OUT &= ~BIT4; //lower the Slave Select line (make active)
+	USISRL = TXdata; //load shift register for transfer NG. Going to need to use both bytes, USISRH as well
+	USISRH = TXdata2; //load the higher byte
+	USICNT = 16;//Start SPI to transfer 8 bits, TRANSFER STARTS NOW, managed by hardware
+}
+//----------------------------------------------------------------------------
+// ISR for USI, this is called when USICNT gets to 0
+//----------------------------------------------------------------------------
+#pragma vector = USI_VECTOR
+__interrupt void USI_ISR (void)
+{
+	P1OUT |= BIT4;// raise the Slave Select line (make inactive)
+	USICTL1 &= ~USIIFG; //clear the interrupt flag
+	RXdata = USISRL;// store received data (low byte)
+	//++TXdata; dont need it changing now
+}
+
+
+
+
+
+
+
+

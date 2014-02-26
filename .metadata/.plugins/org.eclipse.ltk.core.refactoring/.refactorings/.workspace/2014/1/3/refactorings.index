@@ -1,0 +1,4 @@
+1389726507721	Rename resource 'blink_4_byte_LED_over_UART'
+1389750679544	Delete resource 'blink_2_byte_LED_over_UART/headers'
+1389750685740	Delete resource 'blink_2_byte_LED_over_UART/source'
+1389967909715	Rename resource 'blink_2_byte_LED_over_UART'

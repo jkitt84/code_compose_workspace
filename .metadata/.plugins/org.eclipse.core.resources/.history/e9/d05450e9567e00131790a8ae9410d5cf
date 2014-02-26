@@ -1,0 +1,51 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+CMD_SRCS += \
+../lnk_msp430g2553.cmd 
+
+C_SRCS += \
+../ascii2dec.c \
+../main.c \
+../pinConfig.c \
+../uart_config.c \
+../updateLEDs.c 
+
+OBJS += \
+./ascii2dec.obj \
+./main.obj \
+./pinConfig.obj \
+./uart_config.obj \
+./updateLEDs.obj 
+
+C_DEPS += \
+./ascii2dec.pp \
+./main.pp \
+./pinConfig.pp \
+./uart_config.pp \
+./updateLEDs.pp 
+
+C_DEPS__QUOTED += \
+"ascii2dec.pp" \
+"main.pp" \
+"pinConfig.pp" \
+"uart_config.pp" \
+"updateLEDs.pp" 
+
+OBJS__QUOTED += \
+"ascii2dec.obj" \
+"main.obj" \
+"pinConfig.obj" \
+"uart_config.obj" \
+"updateLEDs.obj" 
+
+C_SRCS__QUOTED += \
+"../ascii2dec.c" \
+"../main.c" \
+"../pinConfig.c" \
+"../uart_config.c" \
+"../updateLEDs.c" 
+
+

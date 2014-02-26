@@ -1,0 +1,23 @@
+/*
+ * LIsting 8.1
+ * Demonstrate the WatchDogTimer
+ * Button must be pressed every 1 S of the LED will go on indicating a Watch Dog Occured
+ */
+//--------------------------------------------------------------
+#include <msp430g2452.h>
+//--------------------------------------------------------------
+//pins for LED and the button
+#define LED1 		BIT0
+#define LED2 		BIT6
+#define B1			BIT3
+// Watch dog configuration: active, ACLK/32768 -> 1s interval; clear counter
+#define WDTCONFIG 	(WDTCNTCL | WDTSSEL)//and leave WDTISx as default for longest period
+//include settings for _RST/NMI pin here as well
+void main (void){
+	WDTCTRL = WDTPW | WDTCONFIG;
+	P1OUT = 0x00;
+	P1DIR = LED1 | LED2;
+	for ( ; ; ){
+
+	}
+}

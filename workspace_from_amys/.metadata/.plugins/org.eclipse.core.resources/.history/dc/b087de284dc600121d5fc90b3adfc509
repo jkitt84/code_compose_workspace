@@ -1,0 +1,24 @@
+/*
+ * listing4_10.c
+ *
+ *  Created on: May 26, 2013
+ */
+#include <msp430.h>
+
+#define LED1	BIT0
+#define LED2	BIT1
+//Iterations for the delay loop
+#define DELAYLOOPS		50000
+
+void main(void){
+	volatile unsigned int LoopCtr = 0;
+
+	WDTCTL = WDTPW | WDTHOLD;
+	P1OUT = LED1;
+	P1DIR = LED1|LED2;
+	for ( ; ; ){
+		for (LoopCtr = 0; LoopCtr < DELAYLOOPS; ++LoopCtr>){
+		}
+		P1OUT ^= LED1|LED2;
+	}
+}

@@ -1,0 +1,25 @@
+#include <msp430.h> 
+//learning stuff while reading the book
+//jpk
+#define LED1	BIT1
+#define B1		BIT4
+
+/*
+ * main.c
+ */
+void main(void) {
+    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
+    P1OUT = 0x01;
+    P1DIR = LED1;
+    /*
+    for (; ;){
+    	if
+    }
+    */
+
+
+
+	P2DIR = 0x03;
+	P2OUT = 0x03;
+	while(1){}
+}

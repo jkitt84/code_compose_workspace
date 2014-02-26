@@ -1,0 +1,21 @@
+/*
+ * press button BUT1 (P1.3) to light up LED1 (P1.0)
+ * responds to an interupt on the input pin. LPM_4 otherwise.
+ * listing 7.1 page 217
+ */
+//------------------------------------------------------------
+#include <msp430g2452.h>
+#include <intrinsics.h>
+//------------------------------------------------------------
+#define LED1 BIT0//led1 which is P1.0
+#define BUT1 BIT4//button 1 which is p1.3
+//------------------------------------------------------------
+void main(void)
+{
+	WDTCTL = WDTPW | WDTHOLD;
+	P1OUT = 0x00;//pre-load everything off
+	P2DIR = LED1;//set LED1 as an output
+	P1IE = BUT1;//enable interupts on Button
+
+
+}

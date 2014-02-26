@@ -1,0 +1,7 @@
+
+**** Build of configuration Debug for project UART_using_USCI_internet_transplant ****
+
+"C:\\ti\\ccsv5\\utils\\bin\\gmake" -k all 
+gmake: Nothing to be done for `all'.
+
+**** Build Finished ****

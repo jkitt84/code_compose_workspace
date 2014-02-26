@@ -1,0 +1,1 @@
+"./main.obj" "./listing8point1.obj" "./listing7point1.obj" "./listing6point5.obj" "./listing4point17.obj" "./listing4point16.obj" "./listing4_10.obj" -l"libc.a" "../lnk_msp430g2452.cmd" 

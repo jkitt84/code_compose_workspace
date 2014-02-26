@@ -1,0 +1,45 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+CMD_SRCS += \
+../lnk_msp430g2452.cmd 
+
+C_SRCS += \
+../listing4_10.c \
+../listing4point16.c \
+../listing4point17.c \
+../main.c 
+
+OBJS += \
+./listing4_10.obj \
+./listing4point16.obj \
+./listing4point17.obj \
+./main.obj 
+
+C_DEPS += \
+./listing4_10.pp \
+./listing4point16.pp \
+./listing4point17.pp \
+./main.pp 
+
+C_DEPS__QUOTED += \
+"listing4_10.pp" \
+"listing4point16.pp" \
+"listing4point17.pp" \
+"main.pp" 
+
+OBJS__QUOTED += \
+"listing4_10.obj" \
+"listing4point16.obj" \
+"listing4point17.obj" \
+"main.obj" 
+
+C_SRCS__QUOTED += \
+"../listing4_10.c" \
+"../listing4point16.c" \
+"../listing4point17.c" \
+"../main.c" 
+
+

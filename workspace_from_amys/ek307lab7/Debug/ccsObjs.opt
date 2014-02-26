@@ -1,0 +1,1 @@
+"./60hertz_PWM.obj" -l"libc.a" "../lnk_msp430g2211.cmd" 

@@ -1,0 +1,45 @@
+
+**** Build of configuration Debug for project blink_4_byte_LED_over_UART ****
+
+"C:\\ti\\ccsv5\\utils\\bin\\gmake" -k all 
+'Building file: ../main.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/bin/cl430" -vmsp --abi=eabi -g --include_path="C:/ti/ccsv5/ccs_base/msp430/include" --include_path="C:/ti/ccsv5/tools/compiler/msp430_4.1.5/include" --advice:power=all --define=__MSP430G2553__ --diag_warning=225 --display_error_number --diag_wrap=off --printf_support=minimal --preproc_with_compile --preproc_dependency="main.pp"  "../main.c"
+"../main.c", line 51: warning #169-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+"../main.c", line 52: warning #169-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+"../main.c", line 53: warning #169-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+"../main.c", line 79: warning #169-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+"../main.c", line 80: warning #169-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+"../main.c", line 81: warning #169-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+"../main.c", line 51: remark #1538-D: (ULP 10.1) ISR USCI0RX_ISR calls function UARTSendArray. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 52: remark #1538-D: (ULP 10.1) ISR USCI0RX_ISR calls function UARTSendArray. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 53: remark #1538-D: (ULP 10.1) ISR USCI0RX_ISR calls function UARTSendArray. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 79: remark #1538-D: (ULP 10.1) ISR USCI0RX_ISR calls function UARTSendArray. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 80: remark #1538-D: (ULP 10.1) ISR USCI0RX_ISR calls function UARTSendArray. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 81: remark #1538-D: (ULP 10.1) ISR USCI0RX_ISR calls function UARTSendArray. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 94: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../main.c", line 15: remark #1535-D: (ULP 8.1) variable "rxBuffer" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../main.c", line 19: remark #1534-D: (ULP 7.1) Detected use of global variable "data" within one function "USCI0RX_ISR". Recommend placing variable in the function locally
+'Finished building: ../main.c'
+' '
+'Building target: blink_4_byte_LED_over_UART.out'
+'Invoking: MSP430 Linker'
+"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/bin/cl430" -vmsp --abi=eabi -g --advice:power=all --define=__MSP430G2553__ --diag_warning=225 --display_error_number --diag_wrap=off --printf_support=minimal -z --stack_size=80 -m"blink_4_byte_LED_over_UART.map" --heap_size=80 -i"C:/ti/ccsv5/ccs_base/msp430/include" -i"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/lib" -i"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/include" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="blink_4_byte_LED_over_UART_linkInfo.xml" --rom_model -o "blink_4_byte_LED_over_UART.out"  "./main.obj" -l"libc.a" "../lnk_msp430g2553.cmd" 
+<Linking>
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 2 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+"../lnk_msp430g2553.cmd", line 111: warning #10374-D: Interrupt vector "PORT1" does not have an interrupt handler routine.
+"../lnk_msp430g2553.cmd", line 112: warning #10374-D: Interrupt vector "PORT2" does not have an interrupt handler routine.
+"../lnk_msp430g2553.cmd", line 114: warning #10374-D: Interrupt vector "ADC10" does not have an interrupt handler routine.
+"../lnk_msp430g2553.cmd", line 115: warning #10374-D: Interrupt vector "USCIAB0TX" does not have an interrupt handler routine.
+"../lnk_msp430g2553.cmd", line 117: warning #10374-D: Interrupt vector "TIMER0_A1" does not have an interrupt handler routine.
+"../lnk_msp430g2553.cmd", line 118: warning #10374-D: Interrupt vector "TIMER0_A0" does not have an interrupt handler routine.
+"../lnk_msp430g2553.cmd", line 119: warning #10374-D: Interrupt vector "WDT" does not have an interrupt handler routine.
+"../lnk_msp430g2553.cmd", line 120: warning #10374-D: Interrupt vector "COMPARATORA" does not have an interrupt handler routine.
+"../lnk_msp430g2553.cmd", line 121: warning #10374-D: Interrupt vector "TIMER1_A1" does not have an interrupt handler routine.
+"../lnk_msp430g2553.cmd", line 122: warning #10374-D: Interrupt vector "TIMER1_A0" does not have an interrupt handler routine.
+"../lnk_msp430g2553.cmd", line 123: warning #10374-D: Interrupt vector "NMI" does not have an interrupt handler routine.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+'Finished building target: blink_4_byte_LED_over_UART.out'
+' '
+
+**** Build Finished ****

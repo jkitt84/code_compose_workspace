@@ -1,0 +1,38 @@
+/*
+ * listing4point16.c
+toggle LEDs by polling timerA
+timerA is SMCLK divided by 8, continuous mode
+ */
+
+#include  <msp430g2452.h>
+#include <stdio.h>
+//#include <io430.h>
+
+#define LED1	BIT0
+#define LED2	BIT1
+char timerAflag = 0;
+
+
+void main(void){
+	WDTCTL = WDTPW|WDTHOLD;
+	BCSCTL1 = CALBC1_1MHZ; //BasicClockSystemControl1
+	DCOCTL  = CALDCO_1MHZ; //DigitallyControllerOscillatorControl
+
+	P1OUT = LED1;
+	P1DIR = LED1|LED2;
+	TACTL = MC_2|ID_3|TASSEL_2|TACLR; //Timer A, ModeControl=2,InputDivider=3,TimerA_SourceSelect=2(SMCLK),TimerA_clear(start timer A)
+	for( ; ; ){
+		while (timerAflag == 0){//do nothing while the TimerA_ControlBit, TimerA_Interupt_Flag is not set
+			if((TACTL & 0x0001) ==0 ){
+				timerAflag = 0;
+			} else {
+				timerAflag = 1;
+			}
+		}
+		//TACTL_bit.TAIFG = 0;//clear the overflow flag
+		TACTL &= ~(0x0001);
+		P1OUT ^=LED1|LED2;
+		timerAflag = 0;
+	}
+
+}

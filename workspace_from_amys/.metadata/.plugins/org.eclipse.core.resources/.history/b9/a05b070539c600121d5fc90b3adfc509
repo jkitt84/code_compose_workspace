@@ -1,0 +1,12 @@
+#include <msp430.h> 
+//learning stuff while reading the book
+//jpk
+/*
+ * main.c
+ */
+void main(void) {
+    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
+	P2DIR = 0x03;
+	P2OUT = 0x03;
+
+}
